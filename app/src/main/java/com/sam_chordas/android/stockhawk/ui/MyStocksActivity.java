@@ -43,13 +43,6 @@ import com.sam_chordas.android.stockhawk.widget.DetailWidgetProvider;
 
 public class MyStocksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     public static final String STOCK_SYMBOL_TAG = "stock_symbol";
 
     private CharSequence mTitle;
@@ -62,6 +55,23 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     boolean isConnected;
     private RecyclerView mRecyclerView;
     private TextView mEmptyTextView;
+
+    public static final String[] QUOTE_PROJECTION = new String[]{
+            QuoteColumns._ID,
+            QuoteColumns.SYMBOL,
+            QuoteColumns.BIDPRICE,
+            QuoteColumns.PERCENT_CHANGE,
+            QuoteColumns.CHANGE,
+            QuoteColumns.ISUP,
+            QuoteColumns.COMPANY_NAME};
+
+    public static final int COL_QUOTE_ID = 0;
+    public static final int COL_QUOTE_SYMBOL = 1;
+    public static final int COL_QUOTE_BIDPRICE = 2;
+    public static final int COL_QUOTE_PERCENT_CHANGE = 3;
+    public static final int COL_QUOTE_CHANGE = 4;
+    public static final int COL_QUOTE_ISUP = 5;
+    public static final int COL_COMPANY_NAME = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,8 +234,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // This narrows the return to only the stocks that are most current.
         return new CursorLoader(this, QuoteProvider.Quotes.CONTENT_URI,
-                new String[]{QuoteColumns._ID, QuoteColumns.SYMBOL, QuoteColumns.BIDPRICE,
-                        QuoteColumns.PERCENT_CHANGE, QuoteColumns.CHANGE, QuoteColumns.ISUP, QuoteColumns.COMPANY_NAME},
+                QUOTE_PROJECTION,
                 QuoteColumns.ISCURRENT + " = ?",
                 new String[]{"1"},
                 null);
