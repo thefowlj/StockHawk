@@ -90,7 +90,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         mServiceIntent = new Intent(this, StockIntentService.class);
         if (savedInstanceState == null) {
             // Run the initialize task service so that some stocks appear upon an empty database
-            mServiceIntent.putExtra("tag", "init");
+            mServiceIntent.putExtra(StockIntentService.TAG, StockIntentService.INIT);
             if (isConnected) {
                 startService(mServiceIntent);
             } else {
@@ -144,8 +144,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                         return;
                                     } else {
                                         // Add the stock to DB
-                                        mServiceIntent.putExtra("tag", "add");
-                                        mServiceIntent.putExtra("symbol", input.toString());
+                                        mServiceIntent.putExtra(StockIntentService.TAG,
+                                                StockIntentService.ADD);
+                                        mServiceIntent.putExtra(StockIntentService.SYMBOL,
+                                                input.toString());
                                         startService(mServiceIntent);
                                     }
                                 }
@@ -166,7 +168,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         if (isConnected) {
             long period = 3600L;
             long flex = 10L;
-            String periodicTag = "periodic";
+            String periodicTag = StockIntentService.PERIODIC;
 
             // create a periodic task to pull stocks once every hour after the app has been opened. This
             // is so Widget data stays up to date.

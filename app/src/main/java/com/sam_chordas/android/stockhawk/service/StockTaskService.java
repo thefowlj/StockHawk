@@ -23,7 +23,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,7 +79,8 @@ public class StockTaskService extends GcmTaskService {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        if (params.getTag().equals("init") || params.getTag().equals("periodic")) {
+        if (params.getTag().equals(StockIntentService.INIT) ||
+                params.getTag().equals(StockIntentService.PERIODIC)) {
             isUpdate = true;
             initQueryCursor = mContext.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                     new String[]{"Distinct " + QuoteColumns.SYMBOL}, null,
@@ -108,10 +108,10 @@ public class StockTaskService extends GcmTaskService {
                     e.printStackTrace();
                 }
             }
-        } else if (params.getTag().equals("add")) {
+        } else if (params.getTag().equals(StockIntentService.ADD)) {
             isUpdate = false;
             // get symbol from params.getExtra and build query
-            String stockInput = params.getExtras().getString("symbol");
+            String stockInput = params.getExtras().getString(StockIntentService.SYMBOL);
             try {
                 if(stockSymbolExists(stockInput) == false) {
                     final String message = "\"" + stockInput + "\" is not a valid stock symbol.";
