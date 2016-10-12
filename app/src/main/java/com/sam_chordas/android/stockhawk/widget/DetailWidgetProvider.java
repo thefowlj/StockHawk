@@ -2,12 +2,12 @@ package com.sam_chordas.android.stockhawk.widget;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
-import android.support.v4.app.TaskStackBuilder;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
 import com.sam_chordas.android.stockhawk.R;
@@ -24,7 +24,7 @@ public class DetailWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for(int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.list_item_quote);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.detail_widget);
 
             Intent intent = new Intent(context, MyStocksActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
@@ -43,5 +43,7 @@ public class DetailWidgetProvider extends AppWidgetProvider {
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list);
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
+
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 }

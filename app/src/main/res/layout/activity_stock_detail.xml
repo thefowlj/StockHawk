@@ -1,13 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_stock_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.sam_chordas.android.stockhawk.ui.StockDetailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/activity_stock_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.sam_chordas.android.stockhawk.ui.StockDetailActivity"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
+
+        <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+            android:text="@string/default_data_time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/data_time_textview"
+            android:layout_marginBottom="@dimen/text_row_spacing"
+            android:layout_marginStart="@dimen/text_row_spacing"
+            android:layout_marginLeft="@dimen/text_row_spacing" />
+
+        <com.db.chart.view.LineChartView
+            android:id="@+id/linechart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:maxHeight="300dp"
+            android:layout_below="@+id/data_time_textview"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/text_row_spacing" />
+
+        <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linechart"
+            android:layout_marginTop="8dp"
+            app:columnCount="2">
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:text="@string/days_range_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:id="@+id/days_range_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                android:text="12.34 - 56.78"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:text="@string/year_range_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:id="@+id/year_range_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                android:text="9.10 - 111.20"
+                app:layout_gravity="fill" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:text="@string/open_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:id="@+id/open_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                android:text="12.34"
+                app:layout_gravity="fill" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:text="@string/previous_close_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                app:layout_gravity="fill"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1" />
+
+            <com.sam_chordas.android.stockhawk.custom.RobotoTextView
+                android:id="@+id/previous_close_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_row_spacing"
+                android:text="56.78"
+                app:layout_gravity="fill" />
+        </android.support.v7.widget.GridLayout>
+
+    </RelativeLayout>
+</ScrollView>

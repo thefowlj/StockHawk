@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<appwidget-provider android:initialLayout="@layout/detail_widget"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/detail_widget"
+    android:minHeight="@dimen/widget_detail_default_height"
+    android:minResizeHeight="@dimen/widget_detail_min_resize_height"
+    android:minResizeWidth="@dimen/widget_detail_min_resize_width"
+    android:minWidth="@dimen/widget_detail_default_width"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen"
+    android:previewImage="@drawable/ic_attach_money_white_24dp"
+    tools:ignore="UnusedAttribute"
+    xmlns:tools="http://schemas.android.com/tools" />
