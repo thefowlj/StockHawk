@@ -10,6 +10,11 @@
     <string name="input_hint">FB</string>
     <string name="input_prefill"></string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
+    <string name="stock_saved_toast">This stock is already saved!</string>
+
+    <string name="details_title">%1$s Details</string>
+
+    <string name="invalid_stock">\"%1$s\" is not a valid stock symbol.</string>
 
     <string name="days_range" translatable="false">DaysRange</string>
     <string name="open_price" translatable="false">Open</string>

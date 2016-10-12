@@ -7,11 +7,11 @@ import com.sam_chordas.android.stockhawk.data.HistoricalQuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
-import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by sam_chordas on 10/8/15.
@@ -21,6 +21,16 @@ public class Utils {
     private static String LOG_TAG = Utils.class.getSimpleName();
 
     public static boolean showPercent = true;
+
+    public static final String ROBOTO_LIGHT_FONT = "fonts/Roboto-Light.ttf";
+    public static final String UTF8 = "UTF-8";
+    public static final String YAHOO_BASE_URL = "https://query.yahooapis.com/v1/public/yql?q=";
+    public static final String YAHOO_SYMBOL_QUERY =
+            "select * from yahoo.finance.quotes where symbol in (";
+    public static final String DEFAULT_STOCK_SYMBOLS = "\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")";
+    public static final String YAHOO_QUERY_SUFFIX =
+            "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
+            + "org%2Falltableswithkeys&callback=";
 
     public static ArrayList quoteJsonToContentVals(String JSON) {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();

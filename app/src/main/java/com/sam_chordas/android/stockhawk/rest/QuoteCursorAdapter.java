@@ -16,6 +16,7 @@ import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperAdapter;
 import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperViewHolder;
+import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 /**
  * Created by sam_chordas on 10/6/15.
@@ -37,7 +38,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
+        robotoLight = Typeface.createFromAsset(mContext.getAssets(), Utils.ROBOTO_LIGHT_FONT);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_quote, parent, false);
         ViewHolder vh = new ViewHolder(itemView);
@@ -46,22 +47,22 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final Cursor cursor) {
-        String symbol = cursor.getString(cursor.getColumnIndex("symbol"));
-        String companyName = cursor.getString(cursor.getColumnIndex("name"));
-        String bidPrice = cursor.getString(cursor.getColumnIndex("bid_price"));
-        boolean isUp = cursor.getInt(cursor.getColumnIndex("is_up")) == 1 ? true : false;
-        String percentChange = cursor.getString(cursor.getColumnIndex("percent_change"));
-        String change = cursor.getString(cursor.getColumnIndex("change"));
+        String symbol = cursor.getString(MyStocksActivity.COL_QUOTE_SYMBOL);
+        String companyName = cursor.getString(MyStocksActivity.COL_COMPANY_NAME);
+        String bidPrice = cursor.getString(MyStocksActivity.COL_QUOTE_BIDPRICE);
+        boolean isUp = cursor.getInt(MyStocksActivity.COL_QUOTE_ISUP) == 1;
+        String percentChange = cursor.getString(MyStocksActivity.COL_QUOTE_PERCENT_CHANGE);
+        String change = cursor.getString(MyStocksActivity.COL_QUOTE_CHANGE);
 
         String contentDescription =
                 companyName + " is " + (isUp ? "up " : "down ") +
                         (Utils.showPercent ? percentChange : change + " points ") +
                         "and currently trading at " + bidPrice;
 
-        viewHolder.symbol.setText(cursor.getString(cursor.getColumnIndex("symbol")));
-        viewHolder.bidPrice.setText(cursor.getString(cursor.getColumnIndex("bid_price")));
+        viewHolder.symbol.setText(symbol);
+        viewHolder.bidPrice.setText(bidPrice);
         int sdk = Build.VERSION.SDK_INT;
-        if (cursor.getInt(cursor.getColumnIndex("is_up")) == 1) {
+        if (isUp) {
             if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
                 viewHolder.change.setBackgroundDrawable(
                         mContext.getResources().getDrawable(R.drawable.percent_change_pill_green));
@@ -79,9 +80,9 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
             }
         }
         if (Utils.showPercent) {
-            viewHolder.change.setText(cursor.getString(cursor.getColumnIndex("percent_change")));
+            viewHolder.change.setText(percentChange);
         } else {
-            viewHolder.change.setText(cursor.getString(cursor.getColumnIndex("change")));
+            viewHolder.change.setText(change);
         }
         viewHolder.itemView.setContentDescription(contentDescription);
     }

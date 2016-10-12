@@ -10,6 +10,6 @@
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen"
-    android:previewImage="@drawable/ic_attach_money_white_24dp"
+    android:previewImage="@drawable/widget_preview"
     tools:ignore="UnusedAttribute"
     xmlns:tools="http://schemas.android.com/tools" />

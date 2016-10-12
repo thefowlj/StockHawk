@@ -73,7 +73,7 @@ public class StockDetailActivity extends AppCompatActivity implements LoaderMana
         Bundle bundle = new Bundle();
         bundle.putString(MyStocksActivity.STOCK_SYMBOL_TAG, mStock);
 
-        setTitle(mStock + " Details");
+        setTitle(getString(R.string.details_title, mStock));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -173,9 +173,6 @@ public class StockDetailActivity extends AppCompatActivity implements LoaderMana
                 int count = data.getCount();
                 int interval = Math.round(count / 5);
                 do {
-                    //TODO: do stuff with the data
-                    //dataArrayList.add(Float.valueOf(data.getString(COL_HIST_QUOTE_CLOSEPRICE)));
-                    //dateArrayList.add(data.getString(COL_HIST_QUOTE_DATE));
 
                     String label = (x % interval == 0) ? data.getString(COL_HIST_QUOTE_DATE) : "";
 
