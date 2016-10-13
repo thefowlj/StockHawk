@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -178,20 +177,14 @@ public class StockTaskService extends GcmTaskService {
                         null,
                         null);
 
-
-
         if(symbolQueryCursor != null) {
             DatabaseUtils.dumpCursor(symbolQueryCursor);
 
-            Calendar calendar = Calendar.getInstance();
             Date date = new Date();
-
             SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
             String endDate = dateFormat.format(date);
             date.setTime(System.currentTimeMillis() - MS_IN_30_DAYS);
             String startDate = dateFormat.format(date);
-            //String startDate = "2016-10-01";
-            //String endDate = "2016-10-08";
             Log.d(LOG_TAG, "Start Date: " + startDate);
             Log.d(LOG_TAG, "End Date: " + endDate);
 
@@ -201,8 +194,10 @@ public class StockTaskService extends GcmTaskService {
                 StringBuilder historicalUrlStringBuilder = new StringBuilder();
                 try {
                     historicalUrlStringBuilder.append(Utils.YAHOO_BASE_URL);
-                    historicalUrlStringBuilder.append(URLEncoder.encode(Utils.YAHOO_SYMBOL_QUERY, Utils.UTF8));
-                    historicalUrlStringBuilder.append(URLEncoder.encode("\""+symbol+"\"", Utils.UTF8));
+                    historicalUrlStringBuilder.append(URLEncoder.encode(Utils.YAHOO_HIST_SYMBOL_QUERY,
+                            Utils.UTF8));
+                    historicalUrlStringBuilder.append(URLEncoder.encode("\"" + symbol + "\"",
+                            Utils.UTF8));
                     historicalUrlStringBuilder.append(URLEncoder.encode(START_DATE_QUERY +
                             startDate + END_DATE_QUERY + endDate + "\"", Utils.UTF8));
                 } catch(UnsupportedEncodingException e) {

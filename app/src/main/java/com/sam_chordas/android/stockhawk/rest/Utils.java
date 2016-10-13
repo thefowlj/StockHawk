@@ -27,6 +27,8 @@ public class Utils {
     public static final String YAHOO_BASE_URL = "https://query.yahooapis.com/v1/public/yql?q=";
     public static final String YAHOO_SYMBOL_QUERY =
             "select * from yahoo.finance.quotes where symbol in (";
+    public static final String YAHOO_HIST_SYMBOL_QUERY =
+            "select * from yahoo.finance.historicaldata where symbol = ";
     public static final String DEFAULT_STOCK_SYMBOLS = "\"YHOO\",\"AAPL\",\"GOOG\",\"MSFT\")";
     public static final String YAHOO_QUERY_SUFFIX =
             "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
