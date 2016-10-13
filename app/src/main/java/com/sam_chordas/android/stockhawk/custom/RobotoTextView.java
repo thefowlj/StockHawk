@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.sam_chordas.android.stockhawk.rest.Utils;
+
 /**
  * Created by jonfowler on 10/11/16.
  */
@@ -27,7 +29,7 @@ public class RobotoTextView extends TextView {
 
     private void init() {
         Typeface tf = Typeface.createFromAsset(getContext().getAssets(),
-                "fonts/Roboto-Light.ttf");
+                Utils.ROBOTO_LIGHT_FONT);
         setTypeface(tf);
     }
 }
