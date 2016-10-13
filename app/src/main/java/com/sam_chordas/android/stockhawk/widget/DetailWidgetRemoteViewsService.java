@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.widget;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Binder;
@@ -28,7 +29,8 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
             QuoteColumns.PERCENT_CHANGE,
             QuoteColumns.CHANGE,
             QuoteColumns.ISUP,
-            QuoteColumns.ISCURRENT
+            QuoteColumns.ISCURRENT,
+            QuoteColumns.COMPANY_NAME
     };
 
     private static int COL_QUOTE_ID = 0;
@@ -38,6 +40,7 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
     private static int COL_QUOTE_CHANGE = 4;
     private static int COL_QUOTE_ISUP = 5;
     private static int COL_QUOTE_ISCURRENT = 6;
+    private static int COL_QUOTE_COMPANY_NAME = 7;
 
     /**
      * To be implemented by the derived service to generate appropriate factories for
@@ -101,6 +104,7 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                     String percentChange = data.getString(COL_QUOTE_PERCENT_CHANGE);
                     String change = data.getString(COL_QUOTE_CHANGE);
                     boolean isUp = data.getInt(COL_QUOTE_ISUP) == 1;
+                    String companyName = data.getString(COL_QUOTE_COMPANY_NAME);
 
                     views.setTextViewText(R.id.stock_symbol, symbol);
                     views.setTextViewText(R.id.bid_price, bidPrice);
@@ -109,6 +113,15 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                     views.setInt(R.id.change, "setBackgroundResource",
                             isUp ? R.drawable.percent_change_pill_green :
                                     R.drawable.percent_change_pill_red);
+
+                    Context context = getApplicationContext();
+                    String contentDescription = context.getString(R.string.cd_list_item,
+                            companyName,
+                            isUp ? context.getString(R.string.up) : context.getString(R.string.down),
+                            Utils.showPercent ? percentChange :
+                                    change + context.getString(R.string.points),
+                            bidPrice);
+                    views.setContentDescription(R.id.list_item, contentDescription);
 
                     final Intent fillInIntent = new Intent();
                     fillInIntent.putExtra(MyStocksActivity.STOCK_SYMBOL_TAG, symbol);
