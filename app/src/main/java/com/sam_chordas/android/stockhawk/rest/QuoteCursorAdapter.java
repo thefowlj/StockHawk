@@ -54,10 +54,17 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
         String percentChange = cursor.getString(MyStocksActivity.COL_QUOTE_PERCENT_CHANGE);
         String change = cursor.getString(MyStocksActivity.COL_QUOTE_CHANGE);
 
-        String contentDescription =
+        /*String contentDescription =
                 companyName + " is " + (isUp ? "up " : "down ") +
                         (Utils.showPercent ? percentChange : change + " points ") +
-                        "and currently trading at " + bidPrice;
+                        "and currently trading at " + bidPrice;*/
+
+        //%1$s is %2$s %3$s and is currently trading at %4$s
+        String contentDescription = mContext.getString(R.string.cd_list_item,
+                companyName,
+                isUp ? mContext.getString(R.string.up) : mContext.getString(R.string.down),
+                Utils.showPercent ? percentChange : change + mContext.getString(R.string.points),
+                bidPrice);
 
         viewHolder.symbol.setText(symbol);
         viewHolder.bidPrice.setText(bidPrice);

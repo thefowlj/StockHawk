@@ -16,6 +16,11 @@
 
     <string name="invalid_stock">\"%1$s\" is not a valid stock symbol.</string>
 
+    <string name="up">up</string>
+    <string name="down">down</string>
+    <string name="points">points</string>
+    <string name="cd_list_item">%1$s is %2$s %3$s and is currently trading at %4$s</string>
+
     <string name="days_range" translatable="false">DaysRange</string>
     <string name="open_price" translatable="false">Open</string>
     <string name="previous_close" translatable="false">PreviousClose</string>

@@ -101,7 +101,8 @@ public class StockTaskService extends GcmTaskService {
                 initQueryCursor.moveToFirst();
                 for (int i = 0; i < initQueryCursor.getCount(); i++) {
                     mStoredSymbols.append("\"" +
-                            initQueryCursor.getString(initQueryCursor.getColumnIndex("symbol")) + "\",");
+                            initQueryCursor.getString(
+                                    initQueryCursor.getColumnIndex(QuoteColumns.SYMBOL)) + "\",");
                     initQueryCursor.moveToNext();
                 }
                 mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
@@ -251,15 +252,16 @@ public class StockTaskService extends GcmTaskService {
         String jsonData = fetchData(urlString);
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
-            jsonObject = jsonObject.getJSONObject("query");
+            jsonObject = jsonObject.getJSONObject(Utils.JSONKeys.QUERY);
             if(jsonObject == null) {
                 return false;
             } else {
-                JSONObject results  = jsonObject.getJSONObject("results").getJSONObject("quote");
+                JSONObject results  = jsonObject.getJSONObject(
+                        Utils.JSONKeys.RESULTS).getJSONObject(Utils.JSONKeys.QUOTE);
                 if (results == null) {
                     return false;
                 } else {
-                    String stuff = results.getString("Ask");
+                    String stuff = results.getString(Utils.JSONKeys.QUOTE_ASK);
                     Log.d(LOG_TAG, stuff);
                     return !stuff.equals("null");
                 }

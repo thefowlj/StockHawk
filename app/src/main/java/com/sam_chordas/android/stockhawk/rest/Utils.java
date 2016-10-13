@@ -34,6 +34,29 @@ public class Utils {
             "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
             + "org%2Falltableswithkeys&callback=";
 
+    public static class JSONKeys {
+        public static final String QUERY = "query";
+        public static final String COUNT = "count";
+        public static final String RESULTS = "results";
+        public static final String QUOTE = "quote";
+
+        public static final String QUOTE_SYMBOL ="symbol";
+        public static final String QUOTE_CHANGE = "Change";
+        public static final String QUOTE_BID = "Bid";
+        public static final String QUOTE_PERCENT_CHANGE = "ChangeinPercent";
+        public static final String QUOTE_DAYS_RANGE = "DaysRange";
+        public static final String QUOTE_YEAR_RANGE = "YearRange";
+        public static final String QUOTE_OPEN = "Open";
+        public static final String QUOTE_PREVIOUS_CLOSE = "PreviousClose";
+        public static final String QUOTE_COMPANY_NAME = "Name";
+        public static final String QUOTE_ASK = "Ask";
+
+
+        public static final String HIST_SYMBOL = "Symbol";
+        public static final String HIST_CLOSE = "Close";
+        public static final String HIST_DATE = "Date";
+    }
+
     public static ArrayList quoteJsonToContentVals(String JSON) {
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
         JSONObject jsonObject = null;
@@ -41,14 +64,14 @@ public class Utils {
         try {
             jsonObject = new JSONObject(JSON);
             if (jsonObject != null && jsonObject.length() != 0) {
-                jsonObject = jsonObject.getJSONObject("query");
-                int count = Integer.parseInt(jsonObject.getString("count"));
+                jsonObject = jsonObject.getJSONObject(JSONKeys.QUERY);
+                int count = Integer.parseInt(jsonObject.getString(JSONKeys.COUNT));
                 if (count == 1) {
-                    jsonObject = jsonObject.getJSONObject("results")
-                            .getJSONObject("quote");
+                    jsonObject = jsonObject.getJSONObject(JSONKeys.RESULTS)
+                            .getJSONObject(JSONKeys.QUOTE);
                     batchOperations.add(buildBatchOperation(jsonObject));
                 } else {
-                    resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+                    resultsArray = jsonObject.getJSONObject(JSONKeys.RESULTS).getJSONArray(JSONKeys.QUOTE);
 
                     if (resultsArray != null && resultsArray.length() != 0) {
                         for (int i = 0; i < resultsArray.length(); i++) {
@@ -71,8 +94,8 @@ public class Utils {
         try {
             jsonObject = new JSONObject(JSON);
             if(jsonObject != null && jsonObject.length() != 0) {
-                jsonObject = jsonObject.getJSONObject("query");
-                resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");
+                jsonObject = jsonObject.getJSONObject(JSONKeys.QUERY);
+                resultsArray = jsonObject.getJSONObject(JSONKeys.RESULTS).getJSONArray(JSONKeys.QUOTE);
                 if (resultsArray != null && resultsArray.length() != 0) {
                     for (int i = 0; i < resultsArray.length(); i++) {
                         jsonObject = resultsArray.getJSONObject(i);
@@ -112,9 +135,9 @@ public class Utils {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.HistoricalQuotes.CONTENT_URI);
         try {
-            builder.withValue(HistoricalQuoteColumns.SYMBOL, jsonObject.getString("Symbol"));
-            builder.withValue(HistoricalQuoteColumns.CLOSEPRICE, jsonObject.getString("Close"));
-            builder.withValue(HistoricalQuoteColumns.DATE, jsonObject.getString("Date"));
+            builder.withValue(HistoricalQuoteColumns.SYMBOL, jsonObject.getString(JSONKeys.HIST_SYMBOL));
+            builder.withValue(HistoricalQuoteColumns.CLOSEPRICE, jsonObject.getString(JSONKeys.HIST_CLOSE));
+            builder.withValue(HistoricalQuoteColumns.DATE, jsonObject.getString(JSONKeys.HIST_DATE));
         } catch(JSONException e) {
             e.printStackTrace();
         }
@@ -125,11 +148,13 @@ public class Utils {
         ContentProviderOperation.Builder builder = ContentProviderOperation.newInsert(
                 QuoteProvider.Quotes.CONTENT_URI);
         try {
-            String change = jsonObject.getString("Change");
-            builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
-            builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
+            String change = jsonObject.getString(JSONKeys.QUOTE_CHANGE);
+            builder.withValue(QuoteColumns.SYMBOL,
+                    jsonObject.getString(JSONKeys.QUOTE_SYMBOL));
+            builder.withValue(QuoteColumns.BIDPRICE,
+                    truncateBidPrice(jsonObject.getString(JSONKeys.QUOTE_BID)));
             builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
-                    jsonObject.getString("ChangeinPercent"), true));
+                    jsonObject.getString(JSONKeys.QUOTE_PERCENT_CHANGE), true));
             builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
             builder.withValue(QuoteColumns.ISCURRENT, 1);
             if (change.charAt(0) == '-') {
@@ -137,11 +162,16 @@ public class Utils {
             } else {
                 builder.withValue(QuoteColumns.ISUP, 1);
             }
-            builder.withValue(QuoteColumns.DAYS_RANGE, jsonObject.getString("DaysRange"));
-            builder.withValue(QuoteColumns.YEAR_RANGE, jsonObject.getString("YearRange"));
-            builder.withValue(QuoteColumns.OPEN, jsonObject.getString("Open"));
-            builder.withValue(QuoteColumns.PREVIOUS_CLOSE, jsonObject.getString("PreviousClose"));
-            builder.withValue(QuoteColumns.COMPANY_NAME, jsonObject.getString("Name"));
+            builder.withValue(QuoteColumns.DAYS_RANGE,
+                    jsonObject.getString(JSONKeys.QUOTE_DAYS_RANGE));
+            builder.withValue(QuoteColumns.YEAR_RANGE,
+                    jsonObject.getString(JSONKeys.QUOTE_YEAR_RANGE));
+            builder.withValue(QuoteColumns.OPEN,
+                    jsonObject.getString(JSONKeys.QUOTE_OPEN));
+            builder.withValue(QuoteColumns.PREVIOUS_CLOSE,
+                    jsonObject.getString(JSONKeys.QUOTE_PREVIOUS_CLOSE));
+            builder.withValue(QuoteColumns.COMPANY_NAME,
+                    jsonObject.getString(JSONKeys.QUOTE_COMPANY_NAME));
 
         } catch (JSONException e) {
             e.printStackTrace();
