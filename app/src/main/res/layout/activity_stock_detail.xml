@@ -29,8 +29,8 @@
         <com.db.chart.view.LineChartView
             android:id="@+id/linechart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:maxHeight="300dp"
+            android:layout_height="@dimen/chart_height"
+            android:maxHeight="@dimen/chart_height"
             android:layout_below="@+id/data_time_textview"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/linechart"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/margin_top_details"
             app:columnCount="2">
 
             <com.sam_chordas.android.stockhawk.custom.RobotoTextView
