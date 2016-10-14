@@ -118,7 +118,7 @@ public class StockTaskService extends GcmTaskService {
             String stockInput = params.getExtras().getString(StockIntentService.SYMBOL);
             try {
                 if(stockSymbolExists(stockInput) == false) {
-                    final String message = getString(R.string.invalid_stock, stockInput);
+                    final String message = mContext.getString(R.string.invalid_stock, stockInput);
                     Handler h = new Handler(mContext.getMainLooper());
 
                     h.post(new Runnable() {
